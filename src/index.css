@@ -2,6 +2,44 @@
 @import "tailwindcss";
 *{
      font-family: "Manrope", sans-serif;
-     font-weight: 500;
-     
+     font-weight: 500;    
+}
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background-color: #060d08;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  html { scroll-behavior: smooth; }
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(13, 36, 20, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+  .glass-light {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .neon-text { text-shadow: 0 0 20px rgba(74,222,128,0.6); }
+  .yellow-glow { box-shadow: 0 0 30px rgba(245,197,24,0.3); }
+  .green-glow { box-shadow: 0 0 40px rgba(74,222,128,0.15); }
+  .card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(74,222,128,0.12);
+  }
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #060d08; }
+  ::-webkit-scrollbar-thumb { background: #1e4d2b; border-radius: 2px; }
 }
