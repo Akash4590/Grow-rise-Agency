@@ -4,9 +4,9 @@ import PainPoints from "../sections/PainPoints";
 import Services from "../sections/Services";
 import Results from "../sections/Results";
 import Testimonials from "../sections/Testimonials";
-// import FAQ from "../sections/FAQ";
-// import CTA from "../sections/CTA";
-// import Footer from "../sections/Footer";
+import Faq from "../sections/FAQ";
+import CTA from "../sections/CTA";
+import Footer from "../sections/Footer";
 
 // Home page — combines all sections in order
 function Home() {
@@ -18,9 +18,9 @@ function Home() {
       <Services />
       <Results />
        <Testimonials />
-      {/* <FAQ />
+      <Faq />
       <CTA />
-      <Footer />  */}
+      <Footer /> 
     </main>
   );
 }
