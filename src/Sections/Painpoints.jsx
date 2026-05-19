@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import painpointImg from "../assets/painpoint.jpg";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -114,32 +115,12 @@ function PainPoints() {
 
           {/* Right visual card */}
           <div className="flex-1 w-full max-w-sm">
-            <div className="glass rounded-2xl p-6 border border-red-900/30">
-              {/* Fake loss chart */}
-              <div className="flex items-center justify-between mb-4">
-                <p className="text-gray-400 text-xs">Ad Spend vs Revenue</p>
-                <span className="text-red-400 text-xs font-bold">-32% ROI</span>
-              </div>
-              <svg viewBox="0 0 260 100" className="w-full" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="lossGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#1e4d2b" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#0d2414" stopOpacity="0.3" />
-                  </linearGradient>
-                </defs>
-                {/* Spend bars */}
-                {[25,40,35,55,45,60,50].map((h, i) => (
-                  <rect key={i} x={i*35+5} y={100-h} width="12" height={h} rx="3" fill="url(#lossGrad)" stroke="#2a5c35" strokeWidth="0.5" />
-                ))}
-                {/* Flat / declining revenue line */}
-                <polyline
-                  points="11,90 46,88 81,85 116,80 151,78 186,75 221,72"
-                  fill="none" stroke="#ef4444" strokeWidth="2"
-                  strokeLinecap="round" strokeLinejoin="round"
-                  strokeDasharray="5,3"
-                />
-              </svg>
-              <p className="text-gray-600 text-xs mt-4 text-center">This is what happens without a strategy</p>
+            <div className="glass rounded-3xl overflow-hidden border border-red-900/30 shadow-xl">
+              <img
+                src={painpointImg}
+                alt="eCommerce pain point"
+                className="w-full h-72 object-cover"
+              />
             </div>
           </div>
         </div>
