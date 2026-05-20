@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AlexThompson from "../assets/Alex-Thompson.jpg";
+import SarahMitchell from "../assets/Sarah-Mitchell.jpg";
+import JamesLee from "../assets/James-Lee.jpg";
+import PriyaSharma from "../assets/Priya-Sharma.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,7 +13,7 @@ const testimonials = [
   {
     name: "Alex Thompson",
     role: "Fashion Brand Owner",
-    avatar: "https://ui-avatars.com/api/?name=Alex+Thompson&background=059669&color=fff&size=128&bold=true&rounded=true",
+    avatar: AlexThompson,
     text: "GrowRise took our store from $2K to $20K per month in just 8 weeks. Their ad strategy and funnel system is on another level. Best investment we've ever made for our brand.",
     roas: "4.1x",
     revenue: "$20K",
@@ -23,7 +27,7 @@ const testimonials = [
   {
     name: "Sarah Mitchell",
     role: "Health & Wellness Brand",
-    avatar: "https://ui-avatars.com/api/?name=Sarah+Mitchell&background=7c3aed&color=fff&size=128&bold=true&rounded=true",
+    avatar: SarahMitchell,
     text: "Finally a team that cares about profit, not just ad spend. They rebuilt our entire funnel and our conversion rate went from 1.2% to 3.8%. The results speak for themselves.",
     roas: "3.8x",
     revenue: "$38K",
@@ -37,7 +41,7 @@ const testimonials = [
   {
     name: "James Lee",
     role: "Home Decor Brand",
-    avatar: "https://ui-avatars.com/api/?name=James+Lee&background=2563eb&color=fff&size=128&bold=true&rounded=true",
+    avatar: JamesLee,
     text: "Our ROAS improved from 1.4x to 4.2x in just 60 days. The GrowRise team is responsive, data-driven, and they actually care about scaling profitably. Highly recommend.",
     roas: "4.2x",
     revenue: "$55K",
@@ -51,7 +55,7 @@ const testimonials = [
   {
     name: "Priya Sharma",
     role: "Beauty & Skincare Brand",
-    avatar: "https://ui-avatars.com/api/?name=Priya+Sharma&background=db2777&color=fff&size=128&bold=true&rounded=true",
+    avatar: PriyaSharma,
     text: "Switched from another agency and the difference is night and day. GrowRise actually understands eCommerce at a deep level. Our revenue tripled in just 3 months.",
     roas: "5.1x",
     revenue: "$72K",
