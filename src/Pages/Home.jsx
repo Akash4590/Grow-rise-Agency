@@ -3,6 +3,7 @@ import About from "../sections/About";
 import PainPoints from "../sections/PainPoints";
 import Services from "../sections/Services";
 import Results from "../sections/Results";
+import WhyChooseUs from "../Sections/Whychooseus";
 import Testimonials from "../sections/Testimonials";
 import Faq from "../sections/FAQ";
 import CTA from "../sections/CTA";
@@ -18,6 +19,7 @@ function Home() {
       <Services />
       <Results />
        <Testimonials />
+       <WhyChooseUs/>
       <Faq />
       <CTA />
       <Footer /> 

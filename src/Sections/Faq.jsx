@@ -93,7 +93,7 @@ function Faq() {
             FAQ
           </div>
           <h2 className="text-white font-extrabold text-3xl sm:text-4xl lg:text-5xl">
-            Common Questions
+            Frequently Asked Questions
           </h2>
         </div>
 
