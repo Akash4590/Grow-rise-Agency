@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-
+import Shopify from "./Pages/Shopify";
 // App root — Navbar is always visible, routes swap content
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/services" element={<Home />} />
+        <Route path="/shopify" element={<Shopify/>} />
         <Route path="/about" element={<Home />} />
         <Route path="/portfolio" element={<Home />} />
         <Route path="/contact" element={<Home />} />
