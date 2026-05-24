@@ -5,10 +5,8 @@ import { gsap } from "gsap";
 // Nav link data
 const NAV_LINKS = [
   { label: "Home", path: "/" },
-
   {label: "Shopify", path: "/shopify", hot: true},
-
-  { label: "Services", path: "/services" },
+ { label: "Services", path: "/" },
   { label: "About", path: "/about" },
   { label: "Portfolio", path: "/portfolio" },
   { label: "Contact", path: "/contact" },

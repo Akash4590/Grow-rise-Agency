@@ -1,15 +1,21 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import HeroSection from '../Sections/shopify/Herosection'
-import WhatWeOffer from '../Sections/shopify/Whatweoffer '
-import CompetitorStats from '../Sections/shopify/Competitorstats'
+import Shopifyhero from '../Sections/shopify/Shopifyhero'
+import ShopifyIncluded from '../Sections/shopify/Shopifyincluded'
+import ShopifyWhyChoose from '../Sections/shopify/Shopifywhychoose'
+import ShopifyProcess from '../Sections/shopify/Shopifyprocess'
+import ShopifyCTA from '../Sections/shopify/Shopifycta'
+import Footer from "../sections/Footer";
 const Shopify = () => {
   return (
     <div id='shopify'>
      <Navbar/>
-     <HeroSection/>
-     {/* <WhatWeOffer/>
-     <CompetitorStats/> */}
+     <Shopifyhero/>
+    <ShopifyIncluded/>
+    <ShopifyWhyChoose/>
+    <ShopifyProcess/>
+    <ShopifyCTA/> 
+    <Footer/>
     </div>
   )
 }

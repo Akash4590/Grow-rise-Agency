@@ -54,7 +54,7 @@ function About() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 sm:py-28 px-4 relative overflow-hidden">
+    <section id="about" ref={sectionRef} className="py-20 sm:py-28 px-4 relative overflow-hidden">
       {/* BG glow */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-green-900/10 rounded-full blur-[100px] pointer-events-none" />
 

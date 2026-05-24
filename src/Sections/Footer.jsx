@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const quickLinks = ["Home", "Services", "About", "Portfolio", "Contact"];
-const serviceLinks = ["Paid Ads", "Funnel Optimization", "CRO", "Scaling Strategy", "Shopify Growth"];
+const serviceLinks = ["Shopify developement", "Social media marketing", "Ecommerce growth", "Website developement", "Meta  marketing"];
 
 function Footer() {
   return (
@@ -34,9 +34,14 @@ function Footer() {
             <h4 className="text-gray-300 font-semibold text-xs uppercase tracking-widest mb-4">Quick Links</h4>
             <ul className="flex flex-col gap-2.5">
               {quickLinks.map(l => (
-                <li key={l}>
-                  <Link to="#" className="text-gray-500 hover:text-white text-xs transition-colors">{l}</Link>
-                </li>
+                 <li key={l}>
+        <a
+          href={`#${l.toLowerCase()}`}
+          className="text-gray-500 hover:text-white text-xs transition-colors"
+        >
+          {l}
+        </a>
+      </li>
               ))}
             </ul>
           </div>
@@ -58,10 +63,10 @@ function Footer() {
             <h4 className="text-gray-300 font-semibold text-xs uppercase tracking-widest mb-4">Contact</h4>
             <div className="flex flex-col gap-2.5">
               <a href="mailto:hello@growrise.agency" className="text-gray-500 hover:text-white text-xs transition-colors">
-                hello@growrise.agency
+               akashjaved4590@gmail.com
               </a>
               <a href="tel:+13005551999" className="text-gray-500 hover:text-white text-xs transition-colors">
-                +1 (300) 555-1999
+                +923019304590
               </a>
 
               {/* Social icons */}
@@ -91,10 +96,11 @@ function Footer() {
 
         {/* Bottom bar */}
         <div className="pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-gray-600 text-xs">© 2024 GrowRise Agency. All rights reserved.</p>
+          <p className="text-gray-600 text-xs">© 2026 GrowRise Agency. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <a href="#" className="text-gray-600 hover:text-gray-400 text-xs transition-colors">Privacy Policy</a>
             <a href="#" className="text-gray-600 hover:text-gray-400 text-xs transition-colors">Terms of Service</a>
+            <a href="#" className="text-gray-600 hover:text-gray-400 text-xs transition-colors">Developed by Akash</a>
           </div>
         </div>
 

@@ -238,8 +238,7 @@ function ServiceCard({ service, cardRef, index }) {
       />
 
       {/* ── Bottom CTA ── */}
-      <button
-        className="inline-flex items-center gap-2 text-sm font-bold group"
+      <a href="./shopify" className="inline-flex items-center gap-2 text-sm font-bold group cursor-pointer"
         style={{ color: accentColor }}
       >
         Explore Service
@@ -258,7 +257,7 @@ function ServiceCard({ service, cardRef, index }) {
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </span>
-      </button>
+      </a>
     </div>
   );
 }
@@ -324,7 +323,7 @@ export default function Services() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-20 sm:py-28 px-4 overflow-hidden">
+    <section id="services" ref={sectionRef} className="relative py-20 sm:py-28 px-4 overflow-hidden">
 
       {/* ── Atmosphere ── */}
       <div className="absolute inset-0 pointer-events-none">

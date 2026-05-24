@@ -1,14 +1,9 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// Hero.jsx  (updated)
-// CHANGES:  AnimatedChart + three FloatingCard components replaced by
-//           <HeroDashboard3D /> which renders the full Three.js scene.
-// ─────────────────────────────────────────────────────────────────────────────
+
+
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import HeroDashboard3D from "./HeroDashboard3D"; // ← only new import
-
-// ── Floating particles (background decoration) ────────────────────────────────
+import HeroDashboard3D from "./HeroDashboard3D"; 
 function Particles() {
   const particles = Array.from({ length: 18 }, (_, i) => i);
   return (
@@ -77,7 +72,7 @@ function Hero() {
   const headingWords = "Scale Your eCommerce Brand To $10K–$100K/Month Profitably".split(" ");
 
   return (
-    <section
+    <section id="home"
       ref={sectionRef}
       className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-16 px-4"
     >
