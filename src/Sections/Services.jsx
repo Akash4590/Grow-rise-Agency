@@ -61,7 +61,7 @@ const SERVICES = [
   },
   {
     id: 2,
-    category: "WEBSITE SOLUTIONS",
+    category: "Social media marketing",
     Icon: WebDevIcon,
     title: "Website Development",
     desc: "Performance-first websites built to convert. We design and develop landing pages, funnels, and full brand websites that drive results.",
