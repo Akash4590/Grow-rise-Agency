@@ -1,127 +1,152 @@
+// src/components/socialmedia/SocialProcess.jsx
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const steps = [
+const STEPS = [
   {
-    number: "1",
-    title: "Strategy",
+    num: "1",
+    label: "Strategy",
     desc: "We create a custom social media strategy.",
   },
   {
-    number: "2",
-    title: "Content Creation",
+    num: "2",
+    label: "Content Creation",
     desc: "We develop content that engages your audience.",
   },
   {
-    number: "3",
-    title: "Management",
+    num: "3",
+    label: "Management",
     desc: "Daily posting & community engagement.",
   },
   {
-    number: "4",
-    title: "Growth",
+    num: "4",
+    label: "Growth",
     desc: "We grow your audience & improve results.",
   },
 ];
 
-const ArrowRight = () => (
-  <svg className="w-8 h-8 text-green-500 flex-shrink-0" fill="none" viewBox="0 0 32 32">
-    <path d="M8 16H24M24 16L17 9M24 16L17 23" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const ArrowDown = () => (
-  <svg className="w-8 h-8 text-green-500 mx-auto" fill="none" viewBox="0 0 32 32">
-    <path d="M16 8V24M16 24L9 17M16 24L23 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+function DashedArrow() {
+  return (
+    <div className="hidden lg:flex items-center justify-center w-10 shrink-0 mt-[-28px]">
+      <svg viewBox="0 0 44 18" fill="none" className="w-9">
+        <path d="M2 9 L34 9" stroke="#4ade80" strokeWidth="1.8" strokeLinecap="round"
+          strokeDasharray="4 3" opacity="0.7" />
+        <path d="M30 4.5 L37 9 L30 13.5" stroke="#4ade80" strokeWidth="1.8"
+          strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      </svg>
+    </div>
+  );
+}
 
 export default function SocialProcess() {
   const sectionRef = useRef(null);
-  const stepsRef = useRef([]);
+  const titleRef   = useRef(null);
+  const stepsRef   = useRef([]);
+  const lineRef    = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(sectionRef.current?.querySelector(".section-heading"), {
-        opacity: 0,
-        y: 30,
-        duration: 0.7,
-        ease: "power3.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-      });
-
-      gsap.from(stepsRef.current, {
-        opacity: 0,
-        y: 40,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: "power2.out",
-        scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
-      });
-    });
-
+      gsap.fromTo(titleRef.current,
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.65, ease: "power3.out",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 82%" } }
+      );
+      gsap.fromTo(stepsRef.current.filter(Boolean),
+        { y: 38, opacity: 0, scale: 0.9 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.65, stagger: 0.14, ease: "back.out(1.4)",
+          scrollTrigger: { trigger: sectionRef.current, start: "top 74%" } }
+      );
+      if (lineRef.current) {
+        gsap.fromTo(lineRef.current,
+          { scaleY: 0, transformOrigin: "top" },
+          { scaleY: 1, duration: 1.1, ease: "power2.out",
+            scrollTrigger: { trigger: sectionRef.current, start: "top 72%" } }
+        );
+      }
+    }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#0a0f0a] py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} className="py-14 px-4"
+      style={{ background: "#071510", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
       <div className="max-w-6xl mx-auto">
-        <h2 className="section-heading text-2xl sm:text-3xl font-bold text-white text-center mb-12 sm:mb-16">
+        <h2 ref={titleRef} className="text-white font-extrabold text-center text-2xl sm:text-3xl mb-12 tracking-tight">
           Our Process
         </h2>
 
-        {/* Desktop: horizontal */}
+        {/* ── Desktop horizontal ── */}
         <div className="hidden lg:flex items-start justify-center gap-0">
-          {steps.map((step, i) => (
-            <div key={step.number} className="flex items-start">
-              {/* Step card */}
+          {STEPS.map((step, i) => (
+            <div key={step.num} className="flex items-start">
               <div
                 ref={(el) => (stepsRef.current[i] = el)}
-                className="flex flex-col items-center text-center w-44 xl:w-52 gap-4"
+                className="flex flex-col items-center text-center w-[180px] cursor-default group"
+                style={{ willChange: "transform" }}
+                onMouseEnter={(e) => {
+                  gsap.to(e.currentTarget.querySelector(".sc"), {
+                    boxShadow: "0 0 28px rgba(74,222,128,0.55)",
+                    scale: 1.08, duration: 0.25,
+                  });
+                }}
+                onMouseLeave={(e) => {
+                  gsap.to(e.currentTarget.querySelector(".sc"), {
+                    boxShadow: "0 0 14px rgba(74,222,128,0.22)",
+                    scale: 1, duration: 0.25,
+                  });
+                }}
               >
-                {/* Number bubble */}
-                <div className="w-14 h-14 rounded-full bg-[#0a1a0a] border-2 border-green-500 flex flex-col items-center justify-center relative">
-                  <span className="text-[10px] text-green-400 font-semibold absolute -top-3 bg-[#0a0f0a] px-1">
-                    {step.number}
-                  </span>
-                  <span className="text-green-400 text-xl font-bold">{step.number}</span>
+                <div
+                  className="sc w-14 h-14 rounded-full flex items-center justify-center font-black text-xl text-white mb-4 shrink-0"
+                  style={{
+                    background: "linear-gradient(135deg,#1a5c2a,#0d3318)",
+                    border: "2px solid rgba(74,222,128,0.55)",
+                    boxShadow: "0 0 14px rgba(74,222,128,0.22)",
+                    willChange: "transform",
+                  }}
+                >
+                  {step.num}
                 </div>
-                <h3 className="text-white font-bold text-base">{step.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed px-2">{step.desc}</p>
+                <span className="text-green-500/50 text-[10px] font-bold mb-1">{step.num}</span>
+                <h3 className="text-white font-bold text-[14px] mb-2 leading-tight">{step.label}</h3>
+                <p className="text-gray-400 text-[12px] leading-relaxed max-w-[140px]">{step.desc}</p>
               </div>
-
-              {/* Arrow between steps */}
-              {i < steps.length - 1 && (
-                <div className="flex items-start pt-6 px-2">
-                  <ArrowRight />
-                </div>
-              )}
+              {i < STEPS.length - 1 && <DashedArrow />}
             </div>
           ))}
         </div>
 
-        {/* Mobile/Tablet: vertical */}
-        <div className="flex lg:hidden flex-col items-center gap-0">
-          {steps.map((step, i) => (
-            <div key={step.number} className="flex flex-col items-center w-full max-w-xs">
-              <div
-                ref={(el) => (stepsRef.current[i + steps.length] = el)}
-                className="flex flex-col items-center text-center gap-3 px-6 py-4 w-full"
-              >
-                <div className="w-12 h-12 rounded-full bg-[#0a1a0a] border-2 border-green-500 flex items-center justify-center">
-                  <span className="text-green-400 text-lg font-bold">{step.number}</span>
-                </div>
-                <h3 className="text-white font-bold text-base">{step.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{step.desc}</p>
+        {/* ── Mobile vertical ── */}
+        <div className="flex lg:hidden flex-col items-start relative pl-4">
+          {/* Vertical line */}
+          <div className="absolute left-[27px] top-7 bottom-7 w-[2px]"
+            style={{ background: "rgba(74,222,128,0.12)" }}>
+            <div ref={lineRef} className="absolute inset-0 rounded-full"
+              style={{ background: "linear-gradient(to bottom,#4ade80,rgba(74,222,128,0.25))" }} />
+          </div>
+
+          {STEPS.map((step, i) => (
+            <div
+              key={step.num}
+              ref={(el) => (stepsRef.current[i] = el)}
+              className="relative z-10 flex items-start gap-5 mb-8 last:mb-0"
+              style={{ willChange: "transform" }}
+            >
+              <div className="w-14 h-14 rounded-full flex items-center justify-center font-black text-xl text-white shrink-0"
+                style={{
+                  background: "linear-gradient(135deg,#1a5c2a,#0d3318)",
+                  border: "2px solid rgba(74,222,128,0.55)",
+                  boxShadow: "0 0 14px rgba(74,222,128,0.22)",
+                }}>
+                {step.num}
               </div>
-              {i < steps.length - 1 && (
-                <div className="py-2">
-                  <ArrowDown />
-                </div>
-              )}
+              <div className="pt-3">
+                <h3 className="text-white font-bold text-[14px] mb-1">{step.label}</h3>
+                <p className="text-gray-400 text-[13px] leading-relaxed">{step.desc}</p>
+              </div>
             </div>
           ))}
         </div>

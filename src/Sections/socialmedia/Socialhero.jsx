@@ -1,7 +1,8 @@
+// src/components/socialmedia/SocialHero.jsx
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
-const checklistItems = [
+const CHECKLIST = [
   "Content Strategy & Creation",
   "Daily Posting & Engagement",
   "Community Management",
@@ -9,227 +10,286 @@ const checklistItems = [
   "Performance Tracking",
 ];
 
-// SVG icons for social platforms
-const InstagramIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-    <defs>
-      <radialGradient id="ig-grad" cx="30%" cy="107%" r="150%">
-        <stop offset="0%" stopColor="#fdf497" />
-        <stop offset="5%" stopColor="#fdf497" />
-        <stop offset="45%" stopColor="#fd5949" />
-        <stop offset="60%" stopColor="#d6249f" />
-        <stop offset="90%" stopColor="#285AEB" />
-      </radialGradient>
-    </defs>
-    <rect width="24" height="24" rx="6" fill="url(#ig-grad)" />
-    <circle cx="12" cy="12" r="4.5" stroke="white" strokeWidth="1.5" fill="none" />
-    <circle cx="17.5" cy="6.5" r="1" fill="white" />
-    <rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="1.2" fill="none" />
-  </svg>
-);
+// ── Platform icon SVGs ─────────────────────────────────────────────────────────
+function InstagramIcon({ size = 52 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
+      <defs>
+        <radialGradient id="igGrad" cx="30%" cy="100%" r="120%">
+          <stop offset="0%"   stopColor="#f9ce34" />
+          <stop offset="25%"  stopColor="#ee2a7b" />
+          <stop offset="55%"  stopColor="#9b26af" />
+          <stop offset="100%" stopColor="#4c68d7" />
+        </radialGradient>
+      </defs>
+      <rect width="60" height="60" rx="14" fill="url(#igGrad)" />
+      <rect x="14" y="14" width="32" height="32" rx="8" stroke="white" strokeWidth="2.5" fill="none" />
+      <circle cx="30" cy="30" r="8.5" stroke="white" strokeWidth="2.5" fill="none" />
+      <circle cx="40" cy="19" r="2.2" fill="white" />
+    </svg>
+  );
+}
 
-const FacebookIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-    <rect width="24" height="24" rx="6" fill="#1877F2" />
-    <path d="M15.5 8H13.5C13.2 8 13 8.2 13 8.5V10.5H15.5L15.1 13H13V20H10V13H8V10.5H10V8.5C10 6.6 11.3 5 13.5 5H15.5V8Z" fill="white" />
-  </svg>
-);
+function FacebookIcon({ size = 52 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
+      <rect width="60" height="60" rx="14" fill="#1877f2" />
+      <path d="M36 12h-4a8 8 0 00-8 8v4h-4v8h4v16h8V32h5l1-8h-6v-4a2 2 0 012-2h4V12z"
+        fill="white" />
+    </svg>
+  );
+}
 
-const LinkedInIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-    <rect width="24" height="24" rx="6" fill="#0A66C2" />
-    <path d="M7 10H5V19H7V10ZM6 9C6.6 9 7 8.6 7 8C7 7.4 6.6 7 6 7C5.4 7 5 7.4 5 8C5 8.6 5.4 9 6 9ZM19 14C19 12 17.8 10 15.5 10C14.4 10 13.5 10.5 13 11.2V10H11V19H13V14.5C13 13.1 13.9 12 15 12C16.1 12 17 12.9 17 14.5V19H19V14Z" fill="white" />
-  </svg>
-);
+function TikTokIcon({ size = 52 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
+      <rect width="60" height="60" rx="14" fill="#010101" />
+      <path d="M35 12c.5 5.5 4.5 8 9 8v7c-3.2 0-6.2-1-9-3v13a12 12 0 11-12-12c.4 0 .8 0 1.2.1V33c-.4-.1-.8-.1-1.2-.1a5 5 0 100 10 5 5 0 005-5V12h7z"
+        fill="white" />
+      <path d="M44 15c-1.5 0-3-.5-4.2-1.5" stroke="#fe2c55" strokeWidth="1.5" />
+    </svg>
+  );
+}
 
-const TikTokIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-    <rect width="24" height="24" rx="6" fill="#010101" />
-    <path d="M17 8.5C16.2 8.5 15.5 8.1 15.1 7.5C14.7 6.9 14.5 6.2 14.5 5.5H12.5V14.7C12.5 15.7 11.7 16.5 10.7 16.5C9.7 16.5 9 15.7 9 14.8C9 13.8 9.8 13 10.7 13C10.9 13 11.1 13 11.3 13.1V11C11.1 11 10.9 11 10.7 11C8.6 11 7 12.7 7 14.8C7 16.9 8.6 18.5 10.7 18.5C12.8 18.5 14.5 16.8 14.5 14.7V9.9C15.3 10.4 16.1 10.7 17 10.7V8.5Z" fill="white" />
-    <path d="M15.5 7C15.8 7.5 16.4 7.9 17 8V7.5C16.7 7.5 16.3 7.4 16 7.2C15.9 7.1 15.7 7 15.5 7Z" fill="#69C9D0" />
-  </svg>
-);
+function YouTubeIcon({ size = 52 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
+      <rect width="60" height="60" rx="14" fill="#ff0000" />
+      <path d="M48.5 21.5S48 18.5 46.5 17C44.7 15 42.7 15 41.8 14.9 35.7 14.5 27 14.5 27 14.5h-.1s-8.7 0-14.8.4C11.3 15 9.3 15 7.5 17 6 18.5 5.5 21.5 5.5 21.5S5 25 5 28.5v3.2c0 3.5.5 7 .5 7s.5 3 2 4.5c1.8 1.9 4.2 1.8 5.2 2 3.8.4 16.3.5 16.3.5s8.7 0 14.8-.4c.9-.1 2.9-.1 4.7-2 1.5-1.5 2-4.5 2-4.5s.5-3.5.5-7v-3.2c0-3.5-.5-7-.5-7z"
+        fill="#ff0000" />
+      <polygon points="24,22 38,30 24,38" fill="white" />
+    </svg>
+  );
+}
 
-const YouTubeIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
-    <rect width="24" height="24" rx="6" fill="#FF0000" />
-    <path d="M19.8 7.8C19.6 7.1 19 6.5 18.3 6.3C17 6 12 6 12 6C12 6 7 6 5.7 6.3C5 6.5 4.4 7.1 4.2 7.8C4 9.1 4 12 4 12C4 12 4 14.9 4.2 16.2C4.4 16.9 5 17.5 5.7 17.7C7 18 12 18 12 18C12 18 17 18 18.3 17.7C19 17.5 19.6 16.9 19.8 16.2C20 14.9 20 12 20 12C20 12 20 9.1 19.8 7.8ZM10.5 14.5V9.5L14.5 12L10.5 14.5Z" fill="white" />
-  </svg>
-);
+function LinkedInIcon({ size = 52 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 60 60" fill="none">
+      <rect width="60" height="60" rx="14" fill="#0a66c2" />
+      <rect x="11" y="22" width="8" height="26" fill="white" />
+      <circle cx="15" cy="14" r="5" fill="white" />
+      <path d="M27 22h7.5v3.5h.1c1-2 3.5-4 7.4-4 8 0 9.5 5.2 9.5 12V48h-8V35c0-3 0-6.8-4.1-6.8-4.2 0-4.8 3.2-4.8 6.5V48H27V22z"
+        fill="white" />
+    </svg>
+  );
+}
 
-const GrowthChart = () => (
-  <svg viewBox="0 0 180 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-    <defs>
-      <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#22c55e" stopOpacity="0.4" />
-        <stop offset="100%" stopColor="#22c55e" stopOpacity="0" />
-      </linearGradient>
-    </defs>
-    {/* Grid lines */}
-    {[20, 40, 60, 80].map((y) => (
-      <line key={y} x1="10" y1={y} x2="170" y2={y} stroke="#22c55e" strokeOpacity="0.1" strokeWidth="1" />
-    ))}
-    {/* Area fill */}
-    <path d="M10 85 L40 70 L70 60 L100 45 L130 30 L160 15 L160 95 L10 95 Z" fill="url(#chartGrad)" />
-    {/* Line */}
-    <path d="M10 85 L40 70 L70 60 L100 45 L130 30 L160 15" stroke="#22c55e" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-    {/* Dots */}
-    {[[10,85],[40,70],[70,60],[100,45],[130,30],[160,15]].map(([x,y],i) => (
-      <circle key={i} cx={x} cy={y} r="3.5" fill="#22c55e" stroke="#0a1a0a" strokeWidth="1.5" />
-    ))}
-    {/* Arrow up */}
-    <path d="M155 10 L160 3 L165 10" stroke="#22c55e" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
+// ── Growth chart mini SVG ─────────────────────────────────────────────────────
+function GrowthChart() {
+  return (
+    <svg viewBox="0 0 180 80" fill="none" className="w-full">
+      <defs>
+        <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stopColor="#4ade80" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#4ade80" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="chartLine" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stopColor="#4ade80" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#4ade80" />
+        </linearGradient>
+        <filter id="cglow">
+          <feGaussianBlur stdDeviation="2" result="b" />
+          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+      </defs>
+      {/* Area fill */}
+      <path d="M0 78 L20 65 L40 60 L60 48 L80 40 L100 28 L120 18 L140 10 L160 5 L180 2 L180 78 Z"
+        fill="url(#chartFill)" />
+      {/* Line */}
+      <polyline
+        points="0,78 20,65 40,60 60,48 80,40 100,28 120,18 140,10 160,5 180,2"
+        stroke="url(#chartLine)" strokeWidth="2.5" fill="none"
+        strokeLinecap="round" strokeLinejoin="round"
+        filter="url(#cglow)" />
+      {/* Arrow tip */}
+      <polygon points="175,0 183,3 176,8" fill="#4ade80" filter="url(#cglow)" />
+      {/* Dots */}
+      {[[80,40],[120,18],[160,5]].map(([x,y],i) => (
+        <circle key={i} cx={x} cy={y} r="3.5" fill="#4ade80" filter="url(#cglow)" />
+      ))}
+    </svg>
+  );
+}
+
+// ── Floating social icon wrapper ──────────────────────────────────────────────
+function FloatingIcon({ children, top, left, right, bottom, floatRef }) {
+  return (
+    <div ref={floatRef} className="absolute z-20 drop-shadow-2xl cursor-default"
+      style={{ top, left, right, bottom,
+        filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.5))",
+        willChange: "transform" }}>
+      {children}
+    </div>
+  );
+}
 
 export default function SocialHero() {
-  const headingRef = useRef(null);
-  const checklistRef = useRef(null);
-  const badgeRef = useRef(null);
-  const descRef = useRef(null);
-  const chartRef = useRef(null);
-  const igRef = useRef(null);
-  const fbRef = useRef(null);
-  const ttRef = useRef(null);
-  const liRef = useRef(null);
-  const ytRef = useRef(null);
+  const sectionRef = useRef(null);
+  const badgeRef   = useRef(null);
+  const h1aRef     = useRef(null);
+  const h1bRef     = useRef(null);
+  const h1cRef     = useRef(null);
+  const descRef    = useRef(null);
+  const listRef    = useRef(null);
+  const rightRef   = useRef(null);
+  const igRef      = useRef(null);
+  const fbRef      = useRef(null);
+  const ttRef      = useRef(null);
+  const ytRef      = useRef(null);
+  const liRef      = useRef(null);
+  const chartRef   = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Badge
-      gsap.from(badgeRef.current, { opacity: 0, y: -20, duration: 0.6, ease: "power2.out" });
+      // ── Entrance timeline ──
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // Heading stagger
-      const lines = headingRef.current?.querySelectorAll(".hero-line");
-      if (lines) {
-        gsap.from(lines, { opacity: 0, y: 30, duration: 0.7, stagger: 0.15, ease: "power3.out", delay: 0.2 });
-      }
+      tl.fromTo(badgeRef.current,  { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 })
+        .fromTo(h1aRef.current,    { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, "-=0.25")
+        .fromTo(h1bRef.current,    { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, "-=0.45")
+        .fromTo(h1cRef.current,    { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, "-=0.45")
+        .fromTo(descRef.current,   { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, "-=0.3")
+        .fromTo(
+          listRef.current?.querySelectorAll(".ch-item"),
+          { x: -18, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.45, stagger: 0.08 }, "-=0.3"
+        )
+        .fromTo(rightRef.current,  { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.9 }, "<-=0.6")
+        .fromTo(chartRef.current,  { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.4");
 
-      // Description
-      gsap.from(descRef.current, { opacity: 0, y: 20, duration: 0.6, delay: 0.6, ease: "power2.out" });
+      // ── Floating icon loops ──
+      const floats = [
+        { ref: igRef, y: -15, dur: 3.0, delay: 0 },
+        { ref: fbRef, y: -10, dur: 3.5, delay: 0.4 },
+        { ref: ttRef, y: -18, dur: 2.8, delay: 0.7 },
+        { ref: ytRef, y: -12, dur: 3.2, delay: 0.2 },
+        { ref: liRef, y: -14, dur: 3.8, delay: 0.9 },
+      ];
 
-      // Checklist items stagger
-      const items = checklistRef.current?.querySelectorAll(".checklist-item");
-      if (items) {
-        gsap.from(items, { opacity: 0, x: -20, duration: 0.5, stagger: 0.1, delay: 0.8, ease: "power2.out" });
-      }
-
-      // Chart fade reveal
-      gsap.from(chartRef.current, { opacity: 0, scale: 0.85, duration: 0.9, delay: 0.4, ease: "back.out(1.5)" });
-
-      // Floating icons
-      const floatIcon = (ref, y, delay) => {
+      floats.forEach(({ ref, y, dur, delay }) => {
         gsap.to(ref.current, {
-          y,
-          repeat: -1,
-          duration: 3,
-          yoyo: true,
-          ease: "sine.inOut",
-          delay,
+          y, duration: dur, ease: "power1.inOut",
+          repeat: -1, yoyo: true, delay,
         });
-      };
-
-      floatIcon(igRef, -15, 0);
-      floatIcon(fbRef, -10, 0.4);
-      floatIcon(ttRef, -18, 0.2);
-      floatIcon(liRef, -12, 0.6);
-      floatIcon(ytRef, -14, 0.8);
-
-      // Icon entrance
-      [igRef, fbRef, ttRef, liRef, ytRef].forEach((ref, i) => {
-        gsap.from(ref.current, { opacity: 0, scale: 0, duration: 0.5, delay: 0.5 + i * 0.1, ease: "back.out(2)" });
       });
-    });
+    }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-[#0a0f0a] overflow-hidden flex items-center">
-      {/* Background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-green-600/10 blur-[120px]" />
-        <div className="absolute bottom-1/4 left-1/3 w-64 h-64 rounded-full bg-green-700/8 blur-[100px]" />
-      </div>
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden pt-28 pb-16 px-4"
+      style={{ background: "linear-gradient(180deg,#050505 0%,#071510 60%,#050505 100%)" }}
+    >
+      {/* BG glows */}
+      <div className="absolute top-0 right-0 w-[520px] h-[520px] rounded-full blur-[150px] pointer-events-none"
+        style={{ background: "rgba(74,222,128,0.07)" }} />
+      <div className="absolute bottom-0 left-0 w-[380px] h-[380px] rounded-full blur-[130px] pointer-events-none"
+        style={{ background: "rgba(74,222,128,0.04)" }} />
+      {/* Dot grid */}
+      <div className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        style={{ backgroundImage: "radial-gradient(circle,#4ade80 1px,transparent 1px)", backgroundSize: "36px 36px" }} />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
 
-          {/* LEFT */}
-          <div className="flex flex-col gap-6">
+          {/* ── LEFT ── */}
+          <div>
             {/* Badge */}
-            <div ref={badgeRef} className="inline-flex items-center gap-2 self-start">
-              <span className="flex items-center gap-2 bg-green-900/30 border border-green-700/40 text-green-400 text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                Social Media Marketing
-              </span>
+            <div ref={badgeRef}
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2 mb-7 text-green-400 text-[10px] font-bold tracking-[0.2em] uppercase"
+              style={{ background: "rgba(74,222,128,0.07)", border: "1px solid rgba(74,222,128,0.35)" }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+              Social Media Marketing
             </div>
 
-            {/* Heading */}
-            <div ref={headingRef} className="flex flex-col gap-1">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-white">
-                <span className="hero-line block">Build Your Brand.</span>
-                <span className="hero-line block text-green-400">Engage.</span>
-                <span className="hero-line block">Grow.</span>
-              </h1>
+            {/* Heading — 3 lines stagger */}
+            <div className="mb-5">
+              <div ref={h1aRef}>
+                <h1 className="font-extrabold text-white leading-[1.08] tracking-tight"
+                  style={{ fontSize: "clamp(32px,4.5vw,56px)" }}>
+                  Build Your Brand.
+                </h1>
+              </div>
+              <div ref={h1bRef}>
+                <h1 className="font-extrabold text-white leading-[1.08] tracking-tight"
+                  style={{ fontSize: "clamp(32px,4.5vw,56px)" }}>
+                  Engage.
+                </h1>
+              </div>
+              <div ref={h1cRef}>
+                <h1 className="font-extrabold text-white leading-[1.08] tracking-tight"
+                  style={{ fontSize: "clamp(32px,4.5vw,56px)" }}>
+                  Grow.
+                </h1>
+              </div>
             </div>
 
-            {/* Description */}
-            <p ref={descRef} className="text-gray-400 text-base sm:text-lg leading-relaxed max-w-md">
+            {/* Desc */}
+            <p ref={descRef} className="text-gray-400 text-[15px] leading-relaxed mb-8 max-w-[400px]">
               We create result-driven social media strategies that build brand awareness and drive sales.
             </p>
 
             {/* Checklist */}
-            <ul ref={checklistRef} className="flex flex-col gap-3 mt-2">
-              {checklistItems.map((item) => (
-                <li key={item} className="checklist-item flex items-center gap-3 text-white text-sm sm:text-base font-medium">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-green-500/20 border border-green-500/50 flex items-center justify-center">
-                    <svg className="w-3 h-3 text-green-400" fill="none" viewBox="0 0 12 12">
-                      <path d="M2 6L5 9L10 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            <ul ref={listRef} className="flex flex-col gap-3">
+              {CHECKLIST.map((item) => (
+                <li key={item} className="ch-item flex items-center gap-3">
+                  <span className="flex items-center justify-center w-5 h-5 rounded-full shrink-0"
+                    style={{ background: "rgba(74,222,128,0.14)", border: "1px solid rgba(74,222,128,0.45)" }}>
+                    <svg className="w-[10px] h-[10px] text-green-400" viewBox="0 0 12 12" fill="none">
+                      <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.9"
+                        strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
-                  {item}
+                  <span className="text-gray-200 text-[14px] font-medium">{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* RIGHT — social icons + chart */}
-          <div className="relative flex items-center justify-center h-80 lg:h-[420px]">
-            {/* Green radial glow behind icons */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-72 h-72 rounded-full bg-green-600/15 blur-[60px]" />
+          {/* ── RIGHT ── */}
+          <div ref={rightRef}
+            className="relative flex items-center justify-center"
+            style={{ minHeight: "360px", willChange: "transform" }}>
+
+            {/* Radial glow behind icons */}
+            <div className="absolute inset-0 pointer-events-none"
+              style={{
+                background: "radial-gradient(circle at 50% 50%, rgba(74,222,128,0.18) 0%, transparent 65%)",
+                filter: "blur(20px)",
+              }} />
+
+            {/* Green chart line at bottom */}
+            <div className="absolute bottom-0 left-0 right-0 px-6">
+              <div ref={chartRef}><GrowthChart /></div>
             </div>
 
-            {/* Growth Chart */}
-            <div ref={chartRef} className="absolute bottom-4 left-2 w-44 sm:w-52 opacity-90">
-              <GrowthChart />
-            </div>
+            {/* Instagram — center-right large */}
+            <FloatingIcon top="8%" left="42%" floatRef={igRef}>
+              <InstagramIcon size={68} />
+            </FloatingIcon>
 
-            {/* Instagram */}
-            <div ref={igRef} className="absolute top-6 right-12 w-16 h-16 sm:w-20 sm:h-20 drop-shadow-[0_0_18px_rgba(225,48,108,0.7)] cursor-pointer">
-              <InstagramIcon />
-            </div>
+            {/* Facebook — top right */}
+            <FloatingIcon top="2%" right="2%" floatRef={fbRef}>
+              <FacebookIcon size={60} />
+            </FloatingIcon>
 
-            {/* Facebook */}
-            <div ref={fbRef} className="absolute top-4 right-1/2 translate-x-1/2 w-14 h-14 sm:w-18 sm:h-18 drop-shadow-[0_0_18px_rgba(24,119,242,0.7)] cursor-pointer">
-              <FacebookIcon />
-            </div>
+            {/* TikTok — middle */}
+            <FloatingIcon top="44%" left="32%" floatRef={ttRef}>
+              <TikTokIcon size={56} />
+            </FloatingIcon>
 
-            {/* TikTok */}
-            <div ref={ttRef} className="absolute top-1/2 right-4 -translate-y-1/2 w-14 h-14 sm:w-16 sm:h-16 drop-shadow-[0_0_18px_rgba(105,201,208,0.6)] cursor-pointer">
-              <TikTokIcon />
-            </div>
+            {/* YouTube — right mid */}
+            <FloatingIcon top="20%" right="4%" floatRef={ytRef}>
+              <YouTubeIcon size={56} />
+            </FloatingIcon>
 
-            {/* LinkedIn */}
-            <div ref={liRef} className="absolute bottom-16 left-1/3 w-14 h-14 sm:w-16 sm:h-16 drop-shadow-[0_0_18px_rgba(10,102,194,0.7)] cursor-pointer">
-              <LinkedInIcon />
-            </div>
-
-            {/* YouTube */}
-            <div ref={ytRef} className="absolute top-12 left-1/4 w-12 h-12 sm:w-14 sm:h-14 drop-shadow-[0_0_18px_rgba(255,0,0,0.6)] cursor-pointer">
-              <YouTubeIcon />
-            </div>
+            {/* LinkedIn — bottom right */}
+            <FloatingIcon bottom="24%" right="8%" floatRef={liRef}>
+              <LinkedInIcon size={52} />
+            </FloatingIcon>
           </div>
         </div>
       </div>

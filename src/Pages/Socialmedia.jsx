@@ -2,8 +2,9 @@ import Navbar from "../components/Navbar";
 import SocialHero from "../Sections/socialmedia/Socialhero";
 import SocialPlatforms from "../Sections/socialmedia/Socialplatforms";
 import SocialBenefits from "../Sections/socialmedia/Socialbenefits";
-// import SocialProcess from "../components/socialmedia/SocialProcess";
-// import SocialCTA from "../components/socialmedia/SocialCTA";
+import Socialprocess from "../Sections/socialmedia/Socialprocess";
+import SocialCTA from "../Sections/socialmedia/SocialCTA";
+import Footer from "../Sections/Footer"
 
 export default function SocialMedia() {
   return (
@@ -12,9 +13,9 @@ export default function SocialMedia() {
       <SocialHero />
       <SocialPlatforms />
       <SocialBenefits />
-      {/* <SocialProcess />
+      <Socialprocess/>
       <SocialCTA />
-      <Footer /> */}
+      <Footer />
     </div>
   );
 }
