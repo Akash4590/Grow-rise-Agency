@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Shopify from "./Pages/Shopify";
 import SocialMedia from "./Pages/Socialmedia";
+import MetaMarketing from "./Pages/MetaMarketing";
 
 import { useEffect } from "react";
 // App root — Navbar is always visible, routes swap content
@@ -25,7 +26,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/shopify" element={<Shopify/>} />
         <Route path="/SocialMedia" element={<SocialMedia />} />
-        <Route path="/portfolio" element={<Home />} />
+      <Route path="/metamarketing" element={<MetaMarketing />} />
         <Route path="/contact" element={<Home />} />
       </Routes>
     </div>

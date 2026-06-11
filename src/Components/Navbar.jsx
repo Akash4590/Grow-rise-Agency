@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { label: "Home", path: "/" },
   { label: "Shopify", path: "/shopify", hot: true },
   { label: "SocialMedia", path: "/SocialMedia" },
-  { label: "About", path: "/about" },
+  { label: "metamarketing", path: "/metamarketing" },
   { label: "Portfolio", path: "/portfolio" },
   { label: "Contact", path: "#contact" },
 ];
